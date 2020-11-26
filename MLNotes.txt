@@ -1,0 +1,122 @@
+Линейната регресия прави регресия
+Логистичната регресия прави класификация
+Decision tree може да прави и двете
+
+Стратифицирана извадка - при класификация баланса между класовете да се запази, тоест взимаме от всеки клас еднакъв процент данни за трениращ и тестов сет. 
+
+L2 regularization – "second norm" (Euclidean):
+	𝜆 – regularization parameter
+	Shrinks all model weights by the same value
+L1 regularization – "first norm":
+	Sets some coefficients to 0: feature selection
+
+Scoring metrics:
+	Regression: usually coefficient of determination 𝑅^2 – proportion of variance predictable from the independent variables
+		Other: mean squared error, mean absolute error, explained variance
+	Classification: usually accuracy (how many items have been properly classified)
+		Other: precision, recall, F1
+
+training set / validation set / testing set
+Правя тренирам върху tr и оценявам върху val за всеки един алгоритъм
+Накрая на база на val избирам най добрия и го оценявам само ВЕДНЪЖ с test set-a
+
+cross validation - когато имаме малко данни, може да разделим траниращите данни на няколко части и правим процеса на валидация за колкото части имаме
+
+Избирам модела който се справя най-добре на база на:
+1. Данните които съм подал
+2. Хиперпараметрите които съм пробвал
+хиперпараметрите не знам какво правят
+3. На база на метриката която съм поискал
+4. На база на процеса който съм избрал
+
+intrinsic/irreducible error - грешка която я има в данните, лошо е да имаме грешка по малка от нея, тя се дължи на шума в данните
+
+Имаме валидационен сет когато сравняваме различни модели и искаме да видим кой е най-добрия, понеже тест сета не може да се използва за това
+
+Ентропия - ентропията е мярка за безпорядък или несигурност 
+
+pruning - окастряне на дървото, правим го когато имаме overfit-ване
+
+Decision forest - Random Forest - гора от дървета, 
+
+Оптимизация на дърво- minimal samples per leaf OR max depth
+Оптимизация на гора - най-важния хипер параметър е броя на дърветата 
+
+bagging - например взимане на резултата от много дървета, като пол за гласуване
+boosting - комбиниране на слаби алгоритми, няколко слаби алгоритъма правят един силен комплексен алгоритъм
+
+weak estimator / weak learner - модел който естимира много зле данните 
+
+Бързината на трениране на DTC зависи от:+++++
+	1. Броя на данните
+	2. Броя на feature-ите
+	3. impurity metric - за да го измерим използваме ентропия или gini index+
+	
+Outliers са типична и характерна част от данните, може да ги филтрираме, но не са грешни
+Аномалиите са грешни изходни данни
+Novelty detection - класификация която има нови непознати елементи, например клас който не сме предположили че съществува
+
+Underfitting implies high bias and low variance, and overfitting implies low bias but high variance
+
+Bias – how far are the predicted from the actual values
+high bias - Underfitting  - алгоритъма е твърде прост спрямо данните, или прави предположение което е невалидно
+Variance – variability of prediction for a certain data point
+high variance - Overfitting - алгоритъма е твърде сложен и успява да научи данните наизуст 
+
+Регуляризация - Method for finding a good bias-variance tradeoff - да накараме модела си да намалява теглата за Logistic regression, за дървета - караме дървото да е по плитко, прави функцията от по къдрава в по регулярна
+
+Increasing C ⇒ weaker regularization. The algorithm follows the data more closely
+Decreasing C ⇒ stronger regularization. The algorithm "doesn't care too much about the data"
+
+Stratify - в трениращия и тествия сет да имаме еднакво процентно съотношение на таргет променлива или променливи
+
+Silhouette score - разстоянието до центъра на клъстера в който попада точката върху разстоянието до центъра на най близкия клъстър.
+
+Собствените стойности и собствените вектори са тези на които собствен вектор на който цялата матрица му действа като умножение със скалар
+Колкото по голяма е една собствена стойност, толкова повече се скалира нейния собствен вектор, толкова по важен е нейния собствен вектор
+
+В PCA искаме да премахнем ковариацията на различни колонки и да увеличим дисперсията им
+
+Embedding - трансформация на многомерно пространство в по малко мерно пространство 
+
+feature extraction - процес при който от неструктурирани данни получаваме структурирани
+feature selection -
+feature engineering -
+
+pickle библиотека - с нея запазваме най добрия естиматор от ръновете, понеже отнемат много време и да може да се провери лесно
+model = LinearRegression() import pickle # store with open('model.pickle', 'wb') as handle: pickle.dump(model)
+
+Regression – predicting a continuous variable
+Classification – predicting class labels
+Clustering – finding compact groups of data points
+Dimensionality reduction – simplifying the input data
+
+Loss function - за една точка (y_pred_i - y_i)^2
+Total cost function - усреднено (y_pred_i - y_i)^2 / n
+
+Kernel PCA gamma parameter - Width of the kernel
+
+hyperparameter?? Logistic regression vs SVM?
+
+'micro': Calculate metrics globally by counting the total true positives, false negatives and false positives.
+'macro': Calculate metrics for each label, and find their unweighted mean. This does not take label imbalance into account.
+'weighted': Calculate metrics for each label, and find their average weighted by support (the number of true instances for each label). 
+	This alters ‘macro’ to account for label imbalance; it can result in an F-score that is not between precision and recall.
+'samples': Calculate metrics for each instance, and find their average (only meaningful for multilabel classification where this differs from accuracy_score).
+
+information gain (IG) - Choose the feature (column) that results in the largest information gain (IG) 
+– impurity measure
+More simply, difference between parent and child impurities - Greater difference = more IG
+Three common impurity measures:
+- Entropy – measure of classification uncertainty
+- Gini index – similar to entropy
+- Misclassification error - Good for pruning a tree but worst measure for growing
+
+Ensemble methods- Random forest, AdaBoost ..
+
+k-Nearest Neighbors - Doesn't learn a fitting function but memorizes the training data
+	Advantage: easily adapts to new data
+	Downside: computational complexity grows linearly with new samples
+
+
+
